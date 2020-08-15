@@ -1,26 +1,94 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Navbar from './layout/Navbar/Navbar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    about: {
+      title: '',
+      text: '',
+    },
+  };
+
+  // Getting title and text
+  newTweet = (title, text) => {
+    this.setState({
+      about: {
+        title,
+        text,
+      },
+    });
+    console.log(this.state.about);
+    this.newItem(title, text);
+  };
+
+  // creating new items
+  newItem = (title, text) => {
+    if (title !== '' || text !== '') {
+      const row = document.createElement('div');
+      row.className = 'grid';
+
+      row.innerHTML = `
+      
+            <div className='img-container'>
+              <img src='https://source.unsplash.com/user/erondu/daily' alt='' />
+            </div>
+            <div className='about'>
+              <h2 className='caps'>${title}</h2>
+    <p className='lead'>${text}</p>
+            </div>
+
+      `;
+
+      const a = document.querySelector('.main');
+      a.appendChild(row);
+    }
+  };
+  render() {
+    return (
+      <div className='main-div'>
+        <Navbar
+          userName='Ankur Yadav'
+          followers='10'
+          following='12'
+          connection='12'
+          newTweet={this.newTweet}
+        />
+        <br />
+        <br />
+        <br />
+        <div className='main container'>
+          <div className='grid'>
+            <div className='img-container'>
+              <img src='https://source.unsplash.com/user/erondu/daily' alt='' />
+            </div>
+            <div className='about'>
+              <h2 className='caps'>Title</h2>
+              <p className='lead'>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime
+                ducimus officia maiores veniam vel. Reprehenderit voluptas
+                pariatur sapiente perferendis molestias, ut odit quo saepe
+                maiores voluptates neque totam eligendi aspernatur.
+              </p>
+            </div>
+          </div>
+          <div className='grid'>
+            <div className='img-container'>
+              <img src='https://source.unsplash.com/user/erondu/daily' alt='' />
+            </div>
+            <div className='about'>
+              <h2 className='caps'>Title2</h2>
+              <p className='lead'>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime
+                ducimus officia maiores veniam vel. Reprehenderit voluptas
+                pariatur sapiente perferendis molestias, ut odit quo saepe
+                maiores voluptates neque totam eligendi aspernatur.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
-
 export default App;
